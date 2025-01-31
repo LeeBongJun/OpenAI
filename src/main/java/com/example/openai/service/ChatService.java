@@ -17,4 +17,14 @@ public class ChatService {
                 .call() // 호출
                 .content(); // 요청정보를 받는 부분
     }
+
+    public String chatmessage(String message) {
+        return chatClient.prompt()
+                .user(message) //
+                .call()
+                .chatResponse()
+                .getResult()
+                .getOutput()
+                .getContent();
+    }
 }
