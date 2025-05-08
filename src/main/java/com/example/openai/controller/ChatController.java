@@ -20,9 +20,15 @@ public class ChatController {
         return chatService.chat(message);
     }
 
-//    @GetMapping("/chat")
-//    public String chat() {
-//        return chatService.generateChatResponse2();
-//    }
+    @GetMapping("/chatmessage")
+    public String chatmessage() {
+        return chatService.generateChatResponse2();
+    }
+
+    @GetMapping("/chatplace")
+    public String chatplace(String subject , String tone , String message) {
+        return chatService.chatplace(subject , tone , message);
+    }
+
 
 }
