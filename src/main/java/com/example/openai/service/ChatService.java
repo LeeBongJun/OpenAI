@@ -1,6 +1,7 @@
 package com.example.openai.service;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,5 +48,12 @@ public class ChatService {
                 .getOutput()
                 .getText();
 
+    }
+
+    public ChatResponse chatjson(String message) {
+        return chatClient.prompt()
+                .user(message)
+                .call()
+                .chatResponse();
     }
 }
