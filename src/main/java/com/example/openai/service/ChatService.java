@@ -1,5 +1,6 @@
 package com.example.openai.service;
 
+import com.example.openai.entity.Answer;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,27 @@ public class ChatService {
                 .user(message)
                 .call()
                 .chatResponse();
+    }
+
+    public Answer chatobject(String message) {
+        return chatClient.prompt()
+                .user(message)
+                .call()
+                .entity(Answer.class);
+    }
+
+    private final String recipeTemplate =  """
+    Answer for {foodname} for {question}?
+    """;
+
+
+    public Answer recipe(String foodName, String question) {
+        return chatClient.prompt()
+                .user(userSpec -> userSpec.text(recipeTemplate)
+                        .param("foodname" , foodName)
+                        .param("question" , question)
+                )
+                .call()
+                .entity(Answer.class);
     }
 }
