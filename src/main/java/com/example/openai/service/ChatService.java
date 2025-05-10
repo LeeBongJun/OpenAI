@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 @Service
 public class ChatService {
@@ -117,4 +118,24 @@ public class ChatService {
 
         return  movieList;
     }
+
+    public String getResponse(String message){
+        return chatClient.prompt().user(message).call().content();
+    }
+
+    public void startChat(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("입력: ");
+        while(true){
+            String message=scanner.nextLine();
+            if(message.equals("exit")){
+                System.out.println("Exiting chat...");
+                break;
+            }
+            String response=getResponse(message);
+            System.out.println("Bot: "+ response);
+        }
+        scanner.close();
+    }
+
 }
